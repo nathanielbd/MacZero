@@ -57,8 +57,6 @@ for epoch in range(epochs):
     loss = 0
     for data in train_loader:
         inputs, moves = data
-        # inputs = torch.reshape(inputs, (SEQ_LEN, BATCH_SIZE//SEQ_LEN, INPUT_SIZE))
-        # moves = torch.reshape(moves, (SEQ_LEN, BATCH_SIZE//SEQ_LEN, OUTPUT_SIZE))
         inputs, moves = inputs.float(), moves.float()
         optimizer.zero_grad()
         outputs, _ = model(inputs)
@@ -67,7 +65,6 @@ for epoch in range(epochs):
         optimizer.step()
         loss += train_loss.item()
     losses.append(loss)
-    # if epoch%100==0:
     print(f"epoch: {epoch}/{epochs}, loss: {loss}")
 
 torch.save(model.state_dict(), 'lstm.pt')
